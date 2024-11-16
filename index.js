@@ -94,7 +94,7 @@ async function checkRate() {
 
   if (currentRate !== null) {
     // Check if the rate has increased
-    if (previousRate && currentRate > previousRate || true) {
+    if (previousRate && currentRate > previousRate) {
       console.log("Rate increased! Sending notification...");
       await sendEmailNotification(currentRate);
     }
