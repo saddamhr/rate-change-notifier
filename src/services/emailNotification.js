@@ -1,5 +1,6 @@
-const nodemailer = require("nodemailer");
-const { email } = require("../config/config");
+import nodemailer from 'nodemailer'
+import config from '../config/config.js';
+
 
 /**
  * Sends an email notification with the updated exchange rate information.
@@ -11,14 +12,14 @@ async function sendEmailNotification(rateData) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: email.user,
-      pass: email.pass,
+      user: config.email.user,
+      pass: config.email.pass,
     },
   });
 
   const mailOptions = {
-    from: email.user,
-    to: email.receiver,
+    from: config.email.user,
+    to: config.email.receiver,
     subject: "Exchange Rate Alert: Rate Increase Detected",
     html: `
       <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 5px;">
@@ -73,8 +74,6 @@ async function sendEmailNotification(rateData) {
   } catch (error) {
     console.error("Error sending email:", error);
   }
-
-  // await transporter.sendMail(mailOptions);
 }
 
-module.exports = sendEmailNotification;
+export default sendEmailNotification;

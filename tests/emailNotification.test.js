@@ -1,6 +1,6 @@
 // Import the required modules and functions
-const nodemailer = require('nodemailer');
-const sendEmailNotification = require('../src/services/emailNotification');
+import nodemailer from 'nodemailer'
+import sendEmailNotification from './../src/services/emailNotification'
 
 jest.mock('nodemailer'); // Mock Nodemailer
 

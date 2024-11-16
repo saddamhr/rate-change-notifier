@@ -1,8 +1,8 @@
-const cron = require("node-cron");
-const fetchExchangeRate = require("./services/fetchRate");
-const sendEmailNotification = require("./services/emailNotification");
-const logger = require("./utils/logger");
-const { scheduleInterval } = require("./config/config");
+import cron from 'node-cron'
+import fetchExchangeRate from './services/fetchRate.js'
+import sendEmailNotification from './services/emailNotification.js'
+import logger from './utils/logger.js'
+import config from './config/config.js';
 
 let previousRate = null;
 
@@ -14,7 +14,7 @@ async function checkRate() {
     const rateData = await fetchExchangeRate();
     const currentRate = rateData.rate;
 
-    if (previousRate && currentRate > previousRate || true) {
+    if (previousRate && currentRate > previousRate) {
       logger.logInfo(`Rate increased from ${previousRate} to ${currentRate}. Sending notification.`);
       await sendEmailNotification(rateData);
     }
@@ -26,5 +26,5 @@ async function checkRate() {
 }
 
 // Schedule the rate check
-cron.schedule(scheduleInterval, checkRate);
+cron.schedule(config.scheduleInterval, checkRate);
 logger.logInfo("Exchange rate notifier is running...");

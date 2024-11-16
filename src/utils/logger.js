@@ -14,5 +14,5 @@ function logInfo(message) {
     console.error(`ERROR: ${message}`);
   }
   
-  module.exports = { logInfo, logError };
+export default { logInfo, logError };
   

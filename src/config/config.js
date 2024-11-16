@@ -1,6 +1,8 @@
-require("dotenv").config();
+import dotenv from 'dotenv'
 
-module.exports = {
+dotenv.config()
+
+export default {
   apiUrl: process.env.API_URL,
   email: {
     user: process.env.EMAIL_USER,
