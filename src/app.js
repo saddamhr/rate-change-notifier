@@ -14,7 +14,7 @@ async function checkRate() {
     const rateData = await fetchExchangeRate();
     const currentRate = rateData.rate;
 
-    if (previousRate && currentRate > previousRate || true) {
+    if (previousRate && currentRate > previousRate) {
       logger.logInfo(`Rate increased from ${previousRate} to ${currentRate}. Sending notification.`);
       await sendEmailNotification(rateData);
     }
