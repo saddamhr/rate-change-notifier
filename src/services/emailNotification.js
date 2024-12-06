@@ -6,7 +6,7 @@ import config from '../config/config.js';
  * Sends an email notification with the updated exchange rate information.
  * @param {Object} rateData - The rate data object.
  */
-async function sendEmailNotification(rateData) {
+async function sendEmailNotification(email, rateData) {
   const { base, quote, sendingAmount, receivingAmount, rate, fee, time } = rateData;
 
   const transporter = nodemailer.createTransport({
@@ -19,7 +19,7 @@ async function sendEmailNotification(rateData) {
 
   const mailOptions = {
     from: config.email.user,
-    to: config.email.receiver,
+    to: email,
     subject: "Exchange Rate Alert: Rate Increase Detected",
     html: `
       <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 5px;">
@@ -70,7 +70,6 @@ async function sendEmailNotification(rateData) {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log("Notification email sent!");
   } catch (error) {
     console.error("Error sending email:", error);
   }

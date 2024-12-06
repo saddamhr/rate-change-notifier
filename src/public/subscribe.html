@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe to Rate Change Notifications</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Subscribe for Rate Change Alerts</h2>
+        <form action="/subscribe" method="POST" id="subscription-form">
+            <div class="form-group">
+                <label for="email">Enter Your Email</label>
+                <input type="email" id="email" name="email" required placeholder="Your email" />
+            </div>
+            
+            <button type="submit" class="btn">Subscribe</button>
+            
+            <!-- Feedback message goes here -->
+            <div id="feedback-message" class="feedback-message"></div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('subscription-form');
+        const feedbackMessage = document.getElementById('feedback-message');
+
+        // Handle form submission and feedback message
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();  // Prevent the default form submission
+
+            const email = document.getElementById('email').value;
+
+            const response = await fetch('/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.text();
+            feedbackMessage.innerHTML = data;
+            feedbackMessage.style.display = 'block';  // Show the feedback message
+        });
+    </script>
+</body>
+</html>
